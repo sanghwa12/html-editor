@@ -91,7 +91,7 @@ const server = http.createServer(async (req, res) => {
       const asset = url.pathname.match(/^\/assets\/([a-f0-9]{16})\/(.*)$/);
       if (asset) return await serveFile(res, getProject(asset[1]).root, decodeURIComponent(asset[2]), true);
       if (url.pathname.startsWith('/vendor/')) return await serveFile(res, path.join(editorRoot, 'node_modules', 'codemirror'), decodeURIComponent(url.pathname.slice(8)));
-      const publicFiles = { '/': 'index.html', '/editor.js': 'editor.js', '/editor.css': 'editor.css', '/bridge.js': 'bridge.js', '/locate.js': 'locate.js' };
+      const publicFiles = { '/': 'index.html', '/editor.js': 'editor.js', '/editor.css': 'editor.css', '/bridge.js': 'bridge.js', '/locate.js': 'locate.js', '/app-icon.ico': 'assets/html-editor-cat.ico' };
       if (publicFiles[url.pathname]) return await serveFile(res, editorRoot, publicFiles[url.pathname]);
       return json(res, 404, { error: '파일을 찾을 수 없습니다.' });
     }

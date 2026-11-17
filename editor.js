@@ -238,7 +238,12 @@ try {
   let session = await request('/api/session'); token = session.token;
   if (params.has('project')) session = await request('/api/session?project=' + encodeURIComponent(params.get('project'))).catch(() => session);
   setProject(session);
-  if (!session.files.length) throw new Error('선택한 폴더에 HTML 파일이 없습니다. 파일 열기에서 다른 HTML을 선택해 주세요.');
-  const requested = params.get('file');
-  await openFile(session.files.includes(requested) ? requested : session.files.includes(session.defaultFile) ? session.defaultFile : session.files.includes('index.html') ? 'index.html' : session.files[0]);
+  if (!session.files.length) {
+    $('loading').textContent = '파일 열기를 눌러 편집할 HTML을 선택하세요.';
+    $('preview-state').textContent = '파일 선택 대기';
+    $('save-state').textContent = '파일 선택 대기';
+  } else {
+    const requested = params.get('file');
+    await openFile(session.files.includes(requested) ? requested : session.files.includes(session.defaultFile) ? session.defaultFile : session.files.includes('index.html') ? 'index.html' : session.files[0]);
+  }
 } catch (issue) { error(issue.message); $('loading').textContent = '편집기 연결을 확인해 주세요.'; }
