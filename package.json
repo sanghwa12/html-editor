@@ -1,0 +1,7 @@
+{
+  "name": "html-editor",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs", "test": "node --test" },
+  "dependencies": { "acorn": "8.15.0", "codemirror": "5.65.20", "parse5": "7.3.0" }
+}

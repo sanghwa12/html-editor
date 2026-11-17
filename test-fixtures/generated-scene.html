@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8"><title>Generated scene fixture</title></head>
+<body>
+  <h2 id="detail-title"></h2>
+  <div id="scene"></div>
+  <script>
+    const stage = { name: '분자 설계', icon: '<path d="M10 10L30 30"/>' };
+    const x = 20;
+    document.getElementById('detail-title').textContent = stage.name;
+    document.getElementById('scene').innerHTML = `<svg viewBox="0 0 100 100"><g transform="translate(${x})">${stage.icon}<text x="0" y="60">${stage.name}</text></g></svg>`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML 편집기</title>
+  <link rel="stylesheet" href="/vendor/lib/codemirror.css">
+  <link rel="stylesheet" href="/vendor/addon/dialog/dialog.css">
+  <link rel="stylesheet" href="/editor.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-icon">&lt;/&gt;</span><div><strong>HTML 편집기</strong><small>LOCAL HTML EDITOR</small></div></div>
+    <div class="file-label"><button id="open-file" class="quiet" title="다른 폴더의 HTML 파일 열기">파일 열기</button><select id="file" aria-label="편집할 HTML 파일"></select></div>
+    <div class="save-group"><span id="save-state" role="status">불러오는 중</span><button id="download" class="quiet" title="현재 코드를 HTML 파일로 내려받기">내려받기</button><button id="save" class="primary" disabled>파일 저장 <kbd>Ctrl S</kbd></button></div>
+  </header>
+  <main id="workbench">
+    <section class="code-pane" aria-label="HTML 코드 편집">
+      <div class="pane-bar"><div><span class="dot"></span><strong>HTML 소스</strong></div><span id="position">1행 · 1열</span></div>
+      <div class="code-wrap"><textarea id="source" aria-label="HTML 소스 코드" spellcheck="false"></textarea></div>
+      <div class="code-footer"><span id="selection-info">오른쪽 요소를 클릭하면 코드로 이동합니다.</span><button id="undo" title="실행 취소 (Ctrl+Z)">↶</button><button id="redo" title="다시 실행 (Ctrl+Shift+Z)">↷</button></div>
+    </section>
+    <div id="divider" role="separator" aria-orientation="vertical" aria-label="코드와 미리보기 너비 조절" tabindex="0"></div>
+    <section class="preview-pane" aria-label="실시간 미리보기">
+      <div class="pane-bar preview-bar"><div><span class="dot live"></span><strong>미리보기</strong></div><div class="preview-actions"><button id="inspect" class="mode active" aria-pressed="true">⌖ 요소 선택</button><button id="interact" class="mode" aria-pressed="false">▷ 페이지 조작</button><select id="viewport" aria-label="미리보기 화면 너비"><option value="1200">발표 화면 · 1200px</option><option value="0">탭 너비에 맞춤</option><option value="390">모바일 · 390px</option></select></div></div>
+      <div id="preview-area"><div id="frame-wrap"><iframe id="preview" title="편집 중인 HTML 미리보기" sandbox="allow-scripts"></iframe></div><div id="loading">파일을 불러오고 있습니다…</div></div>
+      <div class="preview-footer"><span id="preview-state" role="status">준비 중</span><span id="scale"></span><button id="refresh">↻ 다시 실행</button></div>
+    </section>
+  </main>
+  <footer class="bottom-bar"><span id="hint">요소 선택: 클릭 → 코드 위치 · 페이지 조작: 버튼과 애니메이션 실행</span><span>입력 즉시 미리보기 · <b>파일 저장</b>을 눌러 원본에 반영</span></footer>
+  <div id="error" role="alert" hidden></div>
+  <dialog id="file-dialog" aria-labelledby="picker-title">
+    <h2 id="picker-title">HTML 파일 열기</h2>
+    <p class="picker-help">폴더를 이동해 HTML 파일을 선택하세요. 다른 드라이브나 폴더 경로를 붙여 넣을 수도 있습니다.</p>
+    <div class="picker-navigation"><button id="picker-up" type="button">상위 폴더</button><input id="picker-path" aria-label="폴더 경로" spellcheck="false"><button id="picker-go" type="button">이동</button></div>
+    <div id="picker-list" aria-label="폴더와 HTML 파일 목록"></div>
+    <p id="picker-error" role="alert"></p>
+    <div class="picker-footer"><span id="picker-selection">HTML 파일을 선택하세요.</span><button id="picker-cancel" type="button">취소</button><button id="picker-open" type="button" class="primary" disabled>열기</button></div>
+  </dialog>
+  <dialog id="unsaved-dialog" aria-labelledby="unsaved-title">
+    <h2 id="unsaved-title">저장하지 않은 변경이 있습니다</h2>
+    <p>계속 편집하려면 돌아가서 파일을 저장하세요. 다른 파일을 바로 열면 현재 수정 내용은 사라집니다.</p>
+    <form method="dialog"><button value="cancel" autofocus>계속 편집</button><button value="discard" class="primary">저장하지 않고 열기</button></form>
+  </dialog>
+  <script src="/vendor/lib/codemirror.js"></script>
+  <script src="/vendor/mode/xml/xml.js"></script>
+  <script src="/vendor/mode/javascript/javascript.js"></script>
+  <script src="/vendor/mode/css/css.js"></script>
+  <script src="/vendor/mode/htmlmixed/htmlmixed.js"></script>
+  <script src="/vendor/addon/edit/matchbrackets.js"></script>
+  <script src="/vendor/addon/search/searchcursor.js"></script>
+  <script src="/vendor/addon/dialog/dialog.js"></script>
+  <script src="/vendor/addon/search/search.js"></script>
+  <script type="module" src="/editor.js"></script>
+</body>
+</html>
